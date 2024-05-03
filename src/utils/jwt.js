@@ -8,7 +8,7 @@ const generateToken = (data) => {     // 'data' es la información que se guarda
 // Función para verificar y decodificar un token JWT
 const verifyToken = (token) => {
     console.log(token); // Muestra el token en la consola (para fines de depuración)
-    return jwt.verify(token, "secreteKeyPepino"); // Verifica y decodifica el token utilizando la clave secreta "secreteKeyPepino"
+    return jwt.verify(token, process.env.SECRET_JWT); // Utiliza la variable de entorno SECRET_JWT como la clave secreta
 }
 
 // Exporta las funciones 'generateToken' y 'verifyToken' para que puedan ser utilizadas en otras partes de la aplicación
