@@ -74,12 +74,16 @@ const login = async (req, res) => {
 const modifyProfile = async (req, res) => {
   try {
     const updatedFields = {};
-    if (req.body.password) {
-      updatedFields.password = bcrypt.hashSync(req.body.password, 10);
+    const {id} = req.params;
+    const user = new Farmer(req.body);
+    user._id = id; 
+    const updateUser = await Farmer.findByIdAndUpdate(id, updatedFields, user, { new: true });
+    if (!updateUser) {
+      return res.status(404).json({ message: "Usuario no existe"})
     }
-    // Aquí podrías agregar más campos que deseas permitir que se actualicen, como nombre, correo electrónico, etc.
-
-    const updateUser = await Farmer.findByIdAndUpdate(req.userProfile._id, updatedFields, { new: true });
+    // if (req.body.password) {
+    //   updatedFields.password = bcrypt.hashSync(req.body.password, 10);
+    // }
     return res.status(200).json({ data: updateUser });
   } catch (error) {
     console.log(error);
@@ -92,7 +96,7 @@ const modifyProfile = async (req, res) => {
 // Función para obtener todos los usuarios
 const getUsers = async (req, res) => { 
   try {
-    const nameUser = req.query.name;
+    const nameUser = req.params;
     const usersDB = await Farmer.find({ name: nameUser });
     return res.status(200).json(usersDB);
   } catch (error) {
@@ -105,7 +109,12 @@ const getUsers = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    const deletedUser = await Farmer.findByIdAndDelete(req.userProfile._id);
+    const id = req.params.id
+    const deletedUser = await Farmer.findByIdAndDelete(id);
+    if(!deleteUser){
+      return res.status(404).json({ message: "Usuario no existe" });  
+    }
+
     return res.status(200).json({ success: true, data: deletedUser });
   } catch (error) {
     console.log(error);

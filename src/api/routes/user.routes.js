@@ -12,8 +12,8 @@ const upload = require('../../middleware/upload.file'); //con la funcion upload 
 
 router.post('/register', register); 
 router.post('/login', login); 
-router.put('/updateUser', [isAuth], modifyProfile); // Modificación de perfil de agricultor (requiere autenticación)
-router.get('/selectUser', getUsers); 
-router.delete('/deleteUser', deleteUser); 
+router.put('/updateUser/:id', [isAuth], modifyProfile); // Modificación de perfil de agricultor (requiere autenticación)
+router.get('/selectUser/:name', getUsers) 
+router.delete('/deleteUser/:id', deleteUser); 
 
 module.exports = router;
