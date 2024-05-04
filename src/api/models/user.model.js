@@ -20,6 +20,7 @@ const farmerSchema = new Schema({
   {
     collection: 'agricultores'
   }
+
 );
 
 // Creación del modelo de Mongoose para los agricultores

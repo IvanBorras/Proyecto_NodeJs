@@ -73,10 +73,13 @@ const login = async (req, res) => {
 // Función para modificar el perfil del usuario
 const modifyProfile = async (req, res) => {
   try {
-    const newUser = new Farmer(req.body);
-    newUser.password = bcrypt.hashSync(req.body.password, 10);
-    newUser._id = req.userProfile._id;
-    const updateUser = await Farmer.findByIdAndUpdate(req.userProfile._id, newUser, { new: true });
+    const updatedFields = {};
+    if (req.body.password) {
+      updatedFields.password = bcrypt.hashSync(req.body.password, 10);
+    }
+    // Aquí podrías agregar más campos que deseas permitir que se actualicen, como nombre, correo electrónico, etc.
+
+    const updateUser = await Farmer.findByIdAndUpdate(req.userProfile._id, updatedFields, { new: true });
     return res.status(200).json({ data: updateUser });
   } catch (error) {
     console.log(error);
@@ -84,15 +87,34 @@ const modifyProfile = async (req, res) => {
   }
 };
 
+
+
 // Función para obtener todos los usuarios
-const getUsers = async (req, res) => {
+const getUsers = async (req, res) => { 
   try {
-    const usersDB = await Farmer.find().populate('agricultores'); 
-    return res.json(usersDB);
+    const nameUser = req.query.name;
+    const usersDB = await Farmer.find({ name: nameUser });
+    return res.status(200).json(usersDB);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ success: false, message: 'Error al obtener usuarios por nombre' });
+  }
+};
+
+
+
+const deleteUser = async (req, res) => {
+  try {
+    const deletedUser = await Farmer.findByIdAndDelete(req.userProfile._id);
+    return res.status(200).json({ success: true, data: deletedUser });
   } catch (error) {
     console.log(error);
     return res.status(500).json(error);
   }
 };
 
-module.exports = { register, login, modifyProfile, getUsers };
+  
+
+
+
+module.exports = { register, login, modifyProfile, getUsers, deleteUser };

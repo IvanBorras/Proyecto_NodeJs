@@ -12,6 +12,7 @@ const createCucumber = async (req, res) => {
 
     // Creamos un nuevo documento de pepino con la información proporcionada
     const cucumberDoc = new Cucumber({
+      id,
       variety,
       color,
       weight,
@@ -35,6 +36,7 @@ const getCucumber = async (req, res) => {
 
     // Buscamos todos los pepinos cultivados por el agricultor específico
     const cucumbers = await Cucumber.find({ farmer: farmerId });
+    
 
     // Respondemos con la lista de pepinos
     return res.status(200).json({ success: true, data: cucumbers });

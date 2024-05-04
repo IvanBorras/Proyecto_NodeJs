@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 
 // Definición del esquema para representar a un pepino
 const cucumberSchema = new Schema({
+  id:{ type: Number},
   variety: { type: String, required: true }, // Variedad del pepino (requerida)
   color: { type: String, required: true }, // Color del pepino (requerido)
   weight: { type: Number, required: true }, // Peso del pepino en gramos (requerido)
