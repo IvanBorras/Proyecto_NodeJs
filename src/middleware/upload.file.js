@@ -5,7 +5,7 @@ const { CloudinaryStorage } = require("multer-storage-cloudinary")
 
 // permite subir a cloudinary las imagenes previamente validadas con el multer
 const storage = new CloudinaryStorage({
-    cloudinary: cloudinary,                                                                   // Configuración de Cloudinary
+    cloudinary: cloudinary,                                                                      // Configuración de Cloudinary
     params: {
         folder: "cucumber federation",                                                           // Carpeta en la que se almacenarán los archivos en Cloudinary
         allowedFormats: ["jpg", "png", "svg", "gif", "jpeg"]                                     // Formatos permitidos para los archivos

@@ -8,18 +8,18 @@ const transporter = require('../../utils/nodemailer-config');
 // Función para registrar un nuevo usuario
 const register = async (req, res) => {
   try {
-    const userDoc = new Farmer(req.body); // Crea un nuevo objeto de usuario con los datos proporcionados en la solicitud
-    const valEmail = await validateEmailDB(req.body.email); // Valida si el correo electrónico ya está registrado en la base de datos
+    const userDoc = new Farmer(req.body);                                                 // Crea un nuevo objeto de usuario con los datos proporcionados en la solicitud
+    const valEmail = await validateEmailDB(req.body.email);                              // Valida si el correo electrónico ya está registrado en la base de datos
     if (!valEmail) {
-      const valPassword = validatePassword(req.body.password); // Valida si la contraseña cumple con los requisitos
+      const valPassword = validatePassword(req.body.password);                          // Valida si la contraseña cumple con los requisitos
       if (valPassword) {
-        userDoc.password = bcrypt.hashSync(userDoc.password, 10); // Encripta la contraseña antes de almacenarla en la base de datos
-        userDoc.confirmUser = generateRandomNumber(); // Genera un número aleatorio para la confirmación del usuario
-        const createdUser = await userDoc.save(); // Guarda el usuario en la base de datos
+        userDoc.password = bcrypt.hashSync(userDoc.password, 10);                       // Encripta la contraseña antes de almacenarla en la base de datos
+        userDoc.confirmUser = generateRandomNumber();                                   // Genera un número aleatorio para la confirmación del usuario
+        const createdUser = await userDoc.save();                                       // Guarda el usuario en la base de datos
 
         // Envía un correo electrónico de confirmación
         await transporter.sendMail({
-          from: 'amaya.hamill47@ethereal.email',
+          from: 'micheal.lowe61@ethereal.email',
           to: req.body.email,
           subject: 'enviado desde nodemailer',
           html:`
@@ -87,7 +87,7 @@ const modifyProfile = async (req, res) => {
 // Función para obtener todos los usuarios
 const getUsers = async (req, res) => {
   try {
-    const usersDB = await Farmer.find();
+    const usersDB = await Farmer.find().populate('agricultores'); 
     return res.json(usersDB);
   } catch (error) {
     console.log(error);
