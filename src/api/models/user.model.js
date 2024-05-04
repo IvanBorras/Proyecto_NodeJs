@@ -17,6 +17,6 @@ const farmerSchema = new Schema({
 });
 
 // Creación del modelo de Mongoose para los agricultores
-const Farmer = mongoose.model('Farmer', farmerSchema);
+const Farmer = mongoose.model('agricultores', farmerSchema);
 
 module.exports = Farmer;

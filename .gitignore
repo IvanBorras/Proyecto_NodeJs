@@ -1,0 +1,4 @@
+# Ignorar la carpeta node_modules si estás trabajando con Node.js
+node_modules/
+# Ignorar archivos de credenciales o secretos
+.env

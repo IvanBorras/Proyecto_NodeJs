@@ -7,10 +7,10 @@ const {
   getUsers,
 } = require('../controllers/user.controller');
 const { isAuth } = require('../../middleware/auth');
-//
+
 const upload = require('../../middleware/upload.file');
 
-//con la funcion upload gestiono la la subida y validacion del archivo, donde "image"  hace referencia al modelo datos de datos  [upload.single("image")]
+//con la funcion upload gestiono la subida y validacion del archivo, donde "image"  hace referencia al modelo datos de datos  [upload.single("image")]
 router.post('/register', register); // Registro de agricultor
 router.post('/login', login); // Autenticación de agricultor
 router.put('/update', [isAuth], modifyProfile); // Modificación de perfil de agricultor (requiere autenticación)

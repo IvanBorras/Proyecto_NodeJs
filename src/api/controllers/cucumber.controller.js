@@ -1,3 +1,5 @@
+// cucumber.controller.js
+
 const Cucumber = require('../models/cucumber.model');
 
 // Función para crear un nuevo pepino
@@ -42,3 +44,4 @@ const getCucumbers = async (req, res) => {
 };
 
 module.exports = { createCucumber, getCucumbers };
+
